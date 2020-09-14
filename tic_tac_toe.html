@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<style>
+.center {
+    background: #F5CBA7;
+    box-shadow: inset -1px 1px 7px rgba(0,0,0,.2), inset 1px -1px 7px rgba(0,0,0,.2), 1px 12px 5px rgba(0,0,0,.4), 4px 3px 8px rgba(0,0,0,.4), 5px 10px 10px rgba(0,0,0,.2), -5px 10px 10px rgba(0,0,0,.4);
+    position: relative;
+    border-radius: 10px;
+    width: 400px;
+    height: 390px;
+    margin: 10% auto;
+    padding: 40px 0 0;
+}
+
+.inner_box{
+    width: 350px;
+    height: 350px;
+    background-size: cover;
+    position: relative;
+    margin: 0 auto;
+    overflow: hidden;
+	box-shadow:0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	background:#212F3C;
+	color:white;
+	font-size:36pt;
+	text-align:center;
+
+}
+
+.text{
+	color: #ffffff;
+	font-family:"Comic Sans MS", cursive, sans-serif;
+	font-size:24pt;
+	margin-left:20px;
+	margin-right:20px;
+	text-align:center;
+
+}
+
+.btn{
+	color: #99A3A4;
+	font-family:"Comic Sans MS", cursive, sans-serif;
+	font-size:18pt;
+	border: none;
+	margin-left:15px;
+	margin-top: 15px;
+	margin-right:15px;
+    background-color: inherit;
+	outline:none;
+	display: inline-block;
+
+}
+.btn:hover {
+	color:#ffffff;
+}
+.board-container {
+  width: 350px;
+  height: 350px;
+  background: rgba(40,40,40,1)
+    -webkit-radial-gradient(center, rgba(40,80,60,1), rgba(0,20,20,.6));
+  background: rgba(40,40,40,1)
+    -moz-radial-gradient(center, rgba(40,80,60,1), rgba(0,20,20,.6));
+  background: rgba(40,40,40,1)
+    -ms-radial-gradient(center, rgba(40,80,60,1), rgba(0,20,20,.6));
+  background: rgba(40,40,40,1)
+    radial-gradient(center, rgba(40,80,60,1), rgba(0,20,20,.6));
+  background-size: cover;
+  position: relative;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+
+
+td {
+  width: 100px;
+  height: 100px;
+}
+table {
+  margin: 5px auto;
+}
+.vert {
+  border-left: 2px solid white;
+  border-right: 2px solid white;
+}
+.hori {
+  border-top: 2px solid white;
+  border-bottom: 2px solid white;
+}
+button{
+border: none;
+background-color: inherit;
+	outline:none;
+height:100%;
+width:100%;
+color: white;
+font-size: 30pt;
+}
+
+</style
+
+</head>
+
+<body>
+
+
+<div class="center">
+
+<div class="inner_box" id="inner_box">
+
+<table>
+  <tr>
+    <td><button id="0"  onClick="markSquare(this.id)"></button></td>
+    <td class="vert"><button id="1"  onClick="markSquare(this.id)"></button></td>
+    <td><button id="2"  onClick="markSquare(this.id)"></button></td>
+  </tr>
+  <tr>
+    <td class="hori"><button id="3"  onClick="markSquare(this.id)"></button></td>
+    <td class="vert hori"><button id="4"  onClick="markSquare(this.id)"></button></td>
+    <td class="hori"><button id="5"  onClick="markSquare(this.id)"></button></td>
+  </tr>
+  <tr>
+    <td><button id="6"  onClick="markSquare(this.id)"></button></td>
+    <td class="vert"><button id="7"  onClick="markSquare(this.id)"></button></td>
+    <td><button id="8"  onClick="markSquare(this.id)"></button></td>
+  </tr>
+</table>
+<button id="reset"  onClick="reset(this.id)"></button>
+
+</div>
+</div>
+<p id="endGame"></p>
+</body>
+
+
+<script type="text/javascript">
+
+ let board=['','','','','','','','',''];
+
+ let playerOne='X';
+ let playerTwo='O';
+ let currentPlayer=playerOne;
+ let count=0;
+ function init(){
+ board=['','','','','','','','',''];
+  let playerOne='X';
+ let playerTwo='O';
+ let currentPlayer=playerOne;
+ let count=0;
+ }
+ 
+ const squares = Array.from(document.querySelectorAll('button'));
+ console.log(squares);
+ 
+ function markSquare(clicked_id){
+document.getElementById(clicked_id).innerHTML=currentPlayer;
+document.getElementById(clicked_id).disabled = 'disabled';
+board[clicked_id]=currentPlayer;
+console.log(board);
+checkWin();
+ switchPlayer();	
+ }
+ 
+ function switchPlayer(){
+ if(currentPlayer==playerOne){
+ currentPlayer=playerTwo
+ }
+ else{
+ currentPlayer=playerOne
+ }
+  count++;
+ if(count>=9){
+	 document.getElementById("inner_box").innerHTML="It's a draw";
+	 }
+
+ }
+ 
+ function checkWin(){
+
+    if((board[0]==currentPlayer && board[1]==currentPlayer && board[2]==currentPlayer && board[0]!='')
+	|| (board[4]==currentPlayer && board[5]==currentPlayer && board[3]==currentPlayer && board[3]!='')
+	|| (board[6]==currentPlayer && board[7]==currentPlayer && board[8]==currentPlayer && board[8]!='')
+	|| (board[6]==currentPlayer && board[3]==currentPlayer && board[0]==currentPlayer && board[0]!='')
+	|| (board[1]==currentPlayer && board[4]==currentPlayer && board[7]==currentPlayer && board[7]!='')
+	|| (board[2]==currentPlayer && board[5]==currentPlayer && board[8]==currentPlayer && board[8]!='')
+	|| (board[0]==currentPlayer && board[4]==currentPlayer && board[8]==currentPlayer && board[8]!='')
+	|| (board[2]==currentPlayer && board[4]==currentPlayer && board[6]==currentPlayer && board[6]!='')){
+	 if(currentPlayer==playerOne){
+	 document.getElementById("inner_box").innerHTML="Player 1 wins";
+	 createResetButton()
+	 }
+	 else{
+	 document.getElementById("inner_box").innerHTML="Player 2 wins";
+	 createResetButton()
+	 }
+	
+	
+	} 
+ 
+ }
+ 
+ function createResetButton(){
+  var button = document.createElement('BUTTON');  
+  var text = document.createTextNode("Replay"); 
+  button.onclick = function() {location.reload()
+  
+  console.log(board);}
+  button.appendChild(text); 
+  inner_box.appendChild(button); 
+   
+ }
+    
+</script>
+  
+
+</html>
